@@ -1,70 +1,29 @@
 <template>
 
-<h2>{{ message }}</h2>
-<p>Le compte: {{ compteur.compte + 1 }}</p>
+<button v-on:click="increment">Le compte est: {{ compte }}</button>
+
+<div @click="resetCompte">Rétablir le compte à 0</div>
 
 </template>
 
-<!-- Exemple Option API
-<script>
-
-export default {
-  data() {
-    return {
-      message: 'Coucou', 
-      compteur: {
-        compte: 0
-      }
-    }
-  }
-}
-
-</script>-->
-
-<!-- Exemple Composition "hybride"
-<script>
-import { ref, reactive } from 'vue';
-
-export default {
-  setup() {
-    //fonctionnalité message
-    const message = ref('Coucou');
-    //fonctions pour message
-    
-    //---------------------------------
-
-    //fonctionnalité compteur
-    const compteur = reactive({
-      compte: 0
-    });
-    //fonctions pour compteur
-
-    return { message, compteur };
-  }
-}
-</script>-->
-
-<!--Exemple Composition-->
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 
-//fonctionnalité message
-const message = ref('Coucou');
-//fonctions pour message
+const compte = ref(0);
 
-//---------------------------------
+function increment() {
+  compte.value++;
+}
 
-//fonctionnalité compteur
-const compteur = reactive({
-  compte: 0
-});
-//fonctions pour compteur
+const resetCompte = () => {
+  compte.value = 0;
+};
 
 </script>
 
 <style scoped>
-h2 {
-  color: red;
+div {
+  cursor: pointer;
 }
 
 header {
