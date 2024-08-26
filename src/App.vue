@@ -1,26 +1,29 @@
 <template>
 
-<p>{{ texte }}</p>
-<input :placeholder="placeholder" v-model="texte"/>
-<!--v-model est bidirectionnel-->
+<button @click="affichage = !affichage">Changer l'affichage</button>
 
-<br>
+<!--Ajoute et retire les éléments du DOM, lourd en chargement et changement-->
+<h1 id="Moi" v-if="affichage">Je suis présent dans le DOM</h1>
+<h1 v-else>Je ne suis plus présent dans le DOM</h1>
 
-<input placeholder="Entrez votre nom" v-model="nom"/>
-<input placeholder="Entrez votre prenom" v-model="prenom"/>
+<!--Cache et affiche les éléments dans le DOM, Attention! Encore présents dans l'inspecteur avec display: none-->
+<h1 id="Moi" v-show="affichage">Je suis affiché dans le DOM</h1>
+<h1 v-show="!affichage">Je suis toujours affiché dans le DOM, mais je suis caché</h1>
 
-<button @click="console.log(nom, prenom)">Envoyer mes informations</button>
+<div v-if="test">
+  {{ test.compte }}
+</div>
 
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
-const texte = ref('bidirectionnel');
-const placeholder = ref('Entrez du texte');
+const affichage = ref(true);
 
-const nom = ref('');
-const prenom = ref('');
+//vu en détail dans Cycle de Vie
+const test = ref();
+onMounted(() => setTimeout(() => { test.value = { compte: true } }, 2000));
 
 </script>
 
