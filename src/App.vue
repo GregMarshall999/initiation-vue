@@ -5,6 +5,7 @@
 
 </template>
 
+<!-- Exemple Option API
 <script>
 
 export default {
@@ -18,9 +19,54 @@ export default {
   }
 }
 
+</script>-->
+
+<!-- Exemple Composition "hybride"
+<script>
+import { ref, reactive } from 'vue';
+
+export default {
+  setup() {
+    //fonctionnalité message
+    const message = ref('Coucou');
+    //fonctions pour message
+    
+    //---------------------------------
+
+    //fonctionnalité compteur
+    const compteur = reactive({
+      compte: 0
+    });
+    //fonctions pour compteur
+
+    return { message, compteur };
+  }
+}
+</script>-->
+
+<!--Exemple Composition-->
+<script setup>
+import { ref, reactive } from 'vue';
+
+//fonctionnalité message
+const message = ref('Coucou');
+//fonctions pour message
+
+//---------------------------------
+
+//fonctionnalité compteur
+const compteur = reactive({
+  compte: 0
+});
+//fonctions pour compteur
+
 </script>
 
 <style scoped>
+h2 {
+  color: red;
+}
+
 header {
   line-height: 1.5;
 }
