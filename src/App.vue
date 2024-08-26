@@ -1,28 +1,9 @@
 <template>
-
-<p>Id Liste des tâches: {{ id }}</p>
-<button @click="id++">Récupérer les prochaines tâches</button>
-
-<p v-if="data">{{ data }}</p>
-<p v-else>Chargement en cours...</p>
-
+  <Enfant />
 </template>
 
 <script setup>
-import { ref, watch, onBeforeMount } from 'vue';
-
-const id = ref(1);
-const data = ref();
-
-const recuperer = async () => {
-  data.value = null;
-  const resultat = await fetch(`https://jsonplaceholder.typicode.com/todos/${id.value}`);
-  data.value = await resultat.json();
-};
-
-watch(id, recuperer);
-
-onBeforeMount(() => recuperer());
+import Enfant from '@/components/Enfant.vue';
 </script>
 
 <style scoped>
