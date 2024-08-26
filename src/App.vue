@@ -1,29 +1,39 @@
 <template>
 
-<button @click="affichage = !affichage">Changer l'affichage</button>
-
-<!--Ajoute et retire les éléments du DOM, lourd en chargement et changement-->
-<h1 id="Moi" v-if="affichage">Je suis présent dans le DOM</h1>
-<h1 v-else>Je ne suis plus présent dans le DOM</h1>
-
-<!--Cache et affiche les éléments dans le DOM, Attention! Encore présents dans l'inspecteur avec display: none-->
-<h1 id="Moi" v-show="affichage">Je suis affiché dans le DOM</h1>
-<h1 v-show="!affichage">Je suis toujours affiché dans le DOM, mais je suis caché</h1>
-
-<div v-if="test">
-  {{ test.compte }}
-</div>
+<form @submit.prevent="add">
+  <input v-model="texteTache" required placeholder="Nouvelle tâche"/>
+  <button>Ajouter une tâche</button>
+</form>
+<ul>
+  <li v-for="(todo, index) in todoListe" :key="todo.id">
+    index: {{ index }} | 
+    {{ todo.texte }} | 
+    <button @click="remove(todo)">X</button>
+  </li>
+</ul>
 
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
-const affichage = ref(true);
+var id = 0;
 
-//vu en détail dans Cycle de Vie
-const test = ref();
-onMounted(() => setTimeout(() => { test.value = { compte: true } }, 2000));
+const texteTache = ref('');
+const todoListe = ref([
+  { id: id++, texte: 'Faire le lit' },
+  { id: id++, texte: 'Faire le petit déjeuner' },
+  { id: id++, texte: 'Aller au travail' }
+]);
+
+const add = () => {
+  todoListe.value.push({ id: id++, texte: texteTache.value });
+  texteTache.value = '';
+}
+
+const remove = todo => {
+  todoListe.value = todoListe.value.filter(t => t !== todo);
+}
 
 </script>
 
