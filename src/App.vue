@@ -5,39 +5,53 @@
   <button>Ajouter une tâche</button>
 </form>
 <ul>
-  <li v-for="(todo, index) in todoListe" :key="todo.id">
+  <li v-for="(todo, index) in cacherListe" :key="todo.id">
     index: {{ index }} | 
-    {{ todo.texte }} | 
+    <input type="checkbox" v-model="todo.complete" /> |
+    <span :class="{ complete: todo.complete }">{{ todo.texte }}</span> | 
     <button @click="remove(todo)">X</button>
   </li>
 </ul>
 
+<button @click="cacherTache = !cacherTache">{{ cacherTache ? 'Tout afficher' : 'Cacher complété' }}</button>
+
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 var id = 0;
-
-const texteTache = ref('');
 const todoListe = ref([
-  { id: id++, texte: 'Faire le lit' },
-  { id: id++, texte: 'Faire le petit déjeuner' },
-  { id: id++, texte: 'Aller au travail' }
+  { id: id++, texte: 'Faire le lit', complete: true },
+  { id: id++, texte: 'Faire le petit déjeuner', complete: false },
+  { id: id++, texte: 'Aller au travail', complete: false }
 ]);
 
+//ajout / retirer tache
+const texteTache = ref('');
 const add = () => {
-  todoListe.value.push({ id: id++, texte: texteTache.value });
+  todoListe.value.push({ id: id++, texte: texteTache.value, complete: false });
   texteTache.value = '';
 }
-
 const remove = todo => {
   todoListe.value = todoListe.value.filter(t => t !== todo);
 }
 
+//afficher / masker tache complété
+const cacherTache = ref(false);
+const cacherListe = computed(() => {
+  console.log('compute');
+  return cacherTache.value ? 
+    todoListe.value.filter(t => !t.complete) : todoListe.value;
+});
+
 </script>
 
 <style scoped>
+.complete {
+  text-decoration: line-through;
+}
+
 header {
   line-height: 1.5;
 }
