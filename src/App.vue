@@ -1,27 +1,20 @@
 <template>
 
-<h1 :class="etat ? 'titre-rouge' : 'titre-bleu'">Je suis un titre {{ etat ? 'rouge' : 'bleu' }}</h1>
-
-<button @click="etat = !etat">Changer la couleur</button>
+<p>{{ texte }}</p>
+<input :placeholder="placeholder" v-model="texte"/>
+<!--v-model est bidirectionnel-->
 
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const etat = ref(true);
+const texte = ref('bidirectionnel');
+const placeholder = ref('Entrez du texte');
 
 </script>
 
 <style scoped>
-.titre-rouge {
-  color: red;
-}
-
-.titre-bleu {
-  color: blue;
-}
-
 header {
   line-height: 1.5;
 }
