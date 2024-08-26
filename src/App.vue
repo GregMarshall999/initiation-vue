@@ -1,57 +1,66 @@
 <template>
 
-<form @submit.prevent="add">
-  <input v-model="texteTache" required placeholder="Nouvelle tâche"/>
-  <button>Ajouter une tâche</button>
-</form>
-<ul>
-  <li v-for="(todo, index) in cacherListe" :key="todo.id">
-    index: {{ index }} | 
-    <input type="checkbox" v-model="todo.complete" /> |
-    <span :class="{ complete: todo.complete }">{{ todo.texte }}</span> | 
-    <button @click="remove(todo)">X</button>
-  </li>
-</ul>
+{{ texte }}
+<button @click="texte = 'test'">changer</button>
 
-<button @click="cacherTache = !cacherTache">{{ cacherTache ? 'Tout afficher' : 'Cacher complété' }}</button>
+<p ref="refChargement">Je suis en train de charger</p>
 
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script>
 
-var id = 0;
-const todoListe = ref([
-  { id: id++, texte: 'Faire le lit', complete: true },
-  { id: id++, texte: 'Faire le petit déjeuner', complete: false },
-  { id: id++, texte: 'Aller au travail', complete: false }
-]);
+export default {
+  data() {
+    return {
+      texte: 'toast'
+    }
+  },
+  beforeCreate() {
+    console.log('before create', this.texte);
+  }, 
+  created() {
+    console.log('created', this.texte);
+  }, 
+  beforeMount() {
+    console.log('before mount');
+  }, 
+  mounted() {
+    console.log('mounted');
 
-//ajout / retirer tache
-const texteTache = ref('');
-const add = () => {
-  todoListe.value.push({ id: id++, texte: texteTache.value, complete: false });
-  texteTache.value = '';
+    setTimeout(() => this.$refs.refChargement.textContent = 'Chargé', 2000);
+  }, 
+
+  beforeUpdate() {
+    console.log('before update', this.texte);
+  }, 
+  updated() {
+    console.log('updated', this.texte);
+  }, 
+
+  beforeUnmount() {
+    console.log('before unmount');
+  }, 
+  unmounted() {
+    console.log('unmounted');
+  }
 }
-const remove = todo => {
-  todoListe.value = todoListe.value.filter(t => t !== todo);
-}
-
-//afficher / masker tache complété
-const cacherTache = ref(false);
-const cacherListe = computed(() => {
-  console.log('compute');
-  return cacherTache.value ? 
-    todoListe.value.filter(t => !t.complete) : todoListe.value;
-});
 
 </script>
 
-<style scoped>
-.complete {
-  text-decoration: line-through;
-}
+<!--
+<script setup>
+import { ref, onMounted } from 'vue';
 
+const texte = ref('toast');
+
+const refChargement = ref();
+onMounted(() => {
+  refChargement.value.textContent = 'chargé';
+});
+
+</script>-->
+
+<style scoped>
 header {
   line-height: 1.5;
 }
