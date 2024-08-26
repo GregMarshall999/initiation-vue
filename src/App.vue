@@ -1,9 +1,31 @@
 <template>
-  <Enfant />
+  <h1>Titre de la page</h1>
+
+  <Affichage :titre="passerAEnfant01.titre" :textes="passerAEnfant01.textes" />
+
+  <Affichage :titre="passerAEnfant02.titre" :textes="passerAEnfant02.textes" />
 </template>
 
 <script setup>
-import Enfant from '@/components/Enfant.vue';
+import Affichage from './components/Affichage.vue';
+import { ref } from 'vue';
+
+const passerAEnfant01 = ref({
+  titre: 'Titre principal',
+  textes: [
+    'Je suis la première ligne.', 
+    'Je suis la seconde ligne.'
+  ]
+});
+
+const passerAEnfant02 = ref({
+  titre: 'Titre secondaire',
+  textes: [
+    'Neque porro quisquam est qui dolorem ipsum.', 
+    'Sit amet, consectetur, adipisci velit.', 
+    'Dolorem ipsum quia.'
+  ]
+});
 </script>
 
 <style scoped>
