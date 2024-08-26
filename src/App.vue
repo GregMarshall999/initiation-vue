@@ -1,29 +1,42 @@
 <template>
 
-<button v-on:click="increment">Le compte est: {{ compte }}</button>
+<h1 :class="classTitre">Je suis un titre {{ texteCouleur }}</h1>
 
-<div @click="resetCompte">Rétablir le compte à 0</div>
+<button @click="changerCouleur">Changer la couleur</button>
 
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const compte = ref(0);
+const classTitre = ref('titre-rouge');
+const texteCouleur = ref('rouge');
 
-function increment() {
-  compte.value++;
+var etat = true;
+const changerCouleur = () => {
+  if(etat) {
+    classTitre.value = 'titre-bleu';
+    texteCouleur.value = 'bleu';
+    
+    etat = false;
+  }
+  else {
+    classTitre.value = 'titre-rouge';
+    texteCouleur.value = 'rouge';
+
+    etat = true;
+  }
 }
-
-const resetCompte = () => {
-  compte.value = 0;
-};
 
 </script>
 
 <style scoped>
-div {
-  cursor: pointer;
+.titre-rouge {
+  color: red;
+}
+
+.titre-bleu {
+  color: blue;
 }
 
 header {
