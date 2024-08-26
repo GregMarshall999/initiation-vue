@@ -1,64 +1,29 @@
 <template>
 
-{{ texte }}
-<button @click="texte = 'test'">changer</button>
+<p>Id Liste des tâches: {{ id }}</p>
+<button @click="id++">Récupérer les prochaines tâches</button>
 
-<p ref="refChargement">Je suis en train de charger</p>
+<p v-if="data">{{ data }}</p>
+<p v-else>Chargement en cours...</p>
 
 </template>
 
-<script>
-
-export default {
-  data() {
-    return {
-      texte: 'toast'
-    }
-  },
-  beforeCreate() {
-    console.log('before create', this.texte);
-  }, 
-  created() {
-    console.log('created', this.texte);
-  }, 
-  beforeMount() {
-    console.log('before mount');
-  }, 
-  mounted() {
-    console.log('mounted');
-
-    setTimeout(() => this.$refs.refChargement.textContent = 'Chargé', 2000);
-  }, 
-
-  beforeUpdate() {
-    console.log('before update', this.texte);
-  }, 
-  updated() {
-    console.log('updated', this.texte);
-  }, 
-
-  beforeUnmount() {
-    console.log('before unmount');
-  }, 
-  unmounted() {
-    console.log('unmounted');
-  }
-}
-
-</script>
-
-<!--
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
 
-const texte = ref('toast');
+const id = ref(1);
+const data = ref();
 
-const refChargement = ref();
-onMounted(() => {
-  refChargement.value.textContent = 'chargé';
-});
+const recuperer = async () => {
+  data.value = null;
+  const resultat = await fetch(`https://jsonplaceholder.typicode.com/todos/${id.value}`);
+  data.value = await resultat.json();
+};
 
-</script>-->
+watch(id, recuperer);
+
+onBeforeMount(() => recuperer());
+</script>
 
 <style scoped>
 header {
