@@ -1,32 +1,15 @@
 <template>
 
-<h1 :class="classTitre">Je suis un titre {{ texteCouleur }}</h1>
+<h1 :class="etat ? 'titre-rouge' : 'titre-bleu'">Je suis un titre {{ etat ? 'rouge' : 'bleu' }}</h1>
 
-<button @click="changerCouleur">Changer la couleur</button>
+<button @click="etat = !etat">Changer la couleur</button>
 
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-const classTitre = ref('titre-rouge');
-const texteCouleur = ref('rouge');
-
-var etat = true;
-const changerCouleur = () => {
-  if(etat) {
-    classTitre.value = 'titre-bleu';
-    texteCouleur.value = 'bleu';
-    
-    etat = false;
-  }
-  else {
-    classTitre.value = 'titre-rouge';
-    texteCouleur.value = 'rouge';
-
-    etat = true;
-  }
-}
+const etat = ref(true);
 
 </script>
 
