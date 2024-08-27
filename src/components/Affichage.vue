@@ -1,25 +1,17 @@
 <template>
-    <div class="container">
+    <div @click="emit('envoyerTitre', props.titre)" class="container">
         <h1>{{ titre }}</h1>
         <p v-for="text in textes">{{ text }}</p>
     </div>
-
-    <span v-if="obj && obj.test">
-        {{ obj.test }}
-    </span>
 </template>
 
 <script setup>
-
 const props = defineProps({
     titre: String, 
     textes: Array, 
-    obj: {
-        type: Object, 
-        required: true
-    }
 });
 
+const emit = defineEmits(['envoyerTitre']);
 </script>
 
 <style>

@@ -1,11 +1,15 @@
 <template>
-  <h1>Titre de la page</h1>
+  <h1>{{ titrePage }}</h1>
 
-  <Affichage :titre="passerAEnfant01.titre" :textes="passerAEnfant01.textes" :obj="{}"/>
+  <Affichage 
+    v-on:envoyer-titre="titreEnvoye"
+    :titre="passerAEnfant01.titre" 
+    :textes="passerAEnfant01.textes"/>
 
-  <Affichage :titre="passerAEnfant02.titre" :textes="passerAEnfant02.textes" />
-
-  <Affichage />
+  <Affichage 
+    @envoyerTitre="titreEnvoye"
+    :titre="passerAEnfant02.titre" 
+    :textes="passerAEnfant02.textes"/>
 </template>
 
 <script setup>
@@ -19,7 +23,6 @@ const passerAEnfant01 = ref({
     'Je suis la seconde ligne.'
   ]
 });
-
 const passerAEnfant02 = ref({
   titre: 'Titre secondaire',
   textes: [
@@ -28,6 +31,11 @@ const passerAEnfant02 = ref({
     'Dolorem ipsum quia.'
   ]
 });
+
+const titrePage = ref('Titre de la page');
+const titreEnvoye = titre => {
+  titrePage.value = titre;
+};
 </script>
 
 <style scoped>
