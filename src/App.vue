@@ -1,9 +1,11 @@
 <template>
   <h1>Titre de la page</h1>
 
-  <Affichage :titre="passerAEnfant01.titre" :textes="passerAEnfant01.textes" />
+  <Affichage :titre="passerAEnfant01.titre" :textes="passerAEnfant01.textes" :obj="{}"/>
 
   <Affichage :titre="passerAEnfant02.titre" :textes="passerAEnfant02.textes" />
+
+  <Affichage />
 </template>
 
 <script setup>

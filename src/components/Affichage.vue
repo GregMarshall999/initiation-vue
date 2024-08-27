@@ -3,13 +3,21 @@
         <h1>{{ titre }}</h1>
         <p v-for="text in textes">{{ text }}</p>
     </div>
+
+    <span v-if="obj && obj.test">
+        {{ obj.test }}
+    </span>
 </template>
 
 <script setup>
 
 const props = defineProps({
     titre: String, 
-    textes: Array
+    textes: Array, 
+    obj: {
+        type: Object, 
+        required: true
+    }
 });
 
 </script>
