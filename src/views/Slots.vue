@@ -2,7 +2,7 @@
 
 <script lang="jsx">
 
-const ComposantSlots = (props, { slots }) => {
+const ComposantSlots = (_, { slots }) => {
     return (
         <div>
             <header>{slots.header()}</header>
