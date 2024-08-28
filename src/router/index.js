@@ -4,6 +4,7 @@ import Props from "@/views/Props.vue";
 import Refs from "@/views/Refs.vue";
 import Slots from "@/views/Slots.vue";
 import Syntaxe from "@/views/Syntaxe.vue";
+import VModel from "@/views/VModel.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
@@ -36,6 +37,11 @@ const routes = [
         path: '/refs', 
         name: 'Refs', 
         component: Refs
+    }, 
+    {
+        path: '/v-model', 
+        name: 'VModel', 
+        component: VModel
     }
 ];
 
